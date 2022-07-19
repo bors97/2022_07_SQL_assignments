@@ -1,6 +1,8 @@
 #!/bin/bash
 . ./config.cfg
 
+
+#This is nowhere near finished. One of the issues I've found difficult is configuring the config.cfg file, specifically how to store the queries then how to access/manipulate them.
 IFS=";"
 
 for query in $queries; do
