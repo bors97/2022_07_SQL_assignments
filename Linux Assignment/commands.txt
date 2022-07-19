@@ -1,0 +1,7 @@
+mkdir test
+touch etc_log.txt
+chmod 777 etc_log.txt
+ls /etc -l | tail -n+2 > etc_log.txt
+touch run_log.txt
+ls /run -l | tail -n+2 > run_log.txt
+cat etc_log.txt run_log.txt | tee unsorted.txt && sort unsorted.txt -r > reversed.txt
