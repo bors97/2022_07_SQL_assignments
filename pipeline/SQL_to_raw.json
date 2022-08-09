@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "SQL_to_raw",
 	"properties": {
 		"activities": [
 			{
