@@ -1,14 +1,9 @@
 {
-	"name": "AzurePostgreSqlTable1",
+	"name": "TableList",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzurePostgreSql1",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"tableName": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "AzurePostgreSqlTable",
@@ -51,11 +46,7 @@
 			}
 		],
 		"typeProperties": {
-			"schema": "public",
-			"table": {
-				"value": "@dataset().tableName",
-				"type": "Expression"
-			}
+			"schema": "public"
 		}
 	}
 }
