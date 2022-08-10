@@ -1,0 +1,23 @@
+{
+	"name": "SQLTable",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzurePostgreSql1",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"tableName": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "AzurePostgreSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"table": {
+				"value": "@dataset().tableName",
+				"type": "Expression"
+			}
+		}
+	}
+}
