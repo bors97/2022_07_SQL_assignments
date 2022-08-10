@@ -1,12 +1,12 @@
 {
-	"name": "tableNameCSV",
+	"name": "TransformationContainer",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"fileName": {
+			"tableName": {
 				"type": "string"
 			}
 		},
@@ -16,10 +16,10 @@
 			"location": {
 				"type": "AzureBlobStorageLocation",
 				"fileName": {
-					"value": "@dataset().fileName",
+					"value": "@dataset().tableName",
 					"type": "Expression"
 				},
-				"container": "raw"
+				"container": "transformation"
 			},
 			"columnDelimiter": ",",
 			"escapeChar": "\\",

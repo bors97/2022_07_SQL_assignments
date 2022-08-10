@@ -1,0 +1,80 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "RawReviewsCSV",
+						"type": "DatasetReference"
+					},
+					"name": "Reviews"
+				},
+				{
+					"dataset": {
+						"referenceName": "RawUsersCSV",
+						"type": "DatasetReference"
+					},
+					"name": "Users"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "TransformationContainer",
+						"type": "DatasetReference"
+					},
+					"name": "ReviewsOutput"
+				},
+				{
+					"name": "UsersOutput"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ReviewsTransform"
+				},
+				{
+					"name": "UsersTransform"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          user_id as short,",
+				"          course_id as short,",
+				"          feedback as string,",
+				"          liked as boolean,",
+				"          ranking_score as short",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     inferDriftedColumnTypes: true,",
+				"     ignoreNoFilesFound: false,",
+				"     multiLineRow: true) ~> Reviews",
+				"source(output(",
+				"          user_id as short,",
+				"          employer_number as short,",
+				"          creation_date as string,",
+				"          username as string,",
+				"          password as string,",
+				"          level as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Users",
+				"Reviews derive(feedback = iifNull(feedback, \"No feedback was given.\", feedback)) ~> ReviewsTransform",
+				"Users derive(creation_date = toDate(creation_date),",
+				"          level = iifNull(level, \"Not yet assigned\", level)) ~> UsersTransform",
+				"ReviewsTransform sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> ReviewsOutput",
+				"UsersTransform sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> UsersOutput"
+			]
+		}
+	}
+}

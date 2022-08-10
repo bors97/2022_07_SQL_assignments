@@ -1,24 +1,16 @@
 {
-	"name": "tableNameCSV",
+	"name": "RawReviewsCSV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
 			"type": "LinkedServiceReference"
-		},
-		"parameters": {
-			"fileName": {
-				"type": "string"
-			}
 		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": {
-					"value": "@dataset().fileName",
-					"type": "Expression"
-				},
+				"fileName": "reviews.csv",
 				"container": "raw"
 			},
 			"columnDelimiter": ",",
@@ -26,6 +18,27 @@
 			"firstRowAsHeader": true,
 			"quoteChar": "\""
 		},
-		"schema": []
+		"schema": [
+			{
+				"name": "user_id",
+				"type": "String"
+			},
+			{
+				"name": "course_id",
+				"type": "String"
+			},
+			{
+				"name": "feedback",
+				"type": "String"
+			},
+			{
+				"name": "liked",
+				"type": "String"
+			},
+			{
+				"name": "ranking_score",
+				"type": "String"
+			}
+		]
 	}
 }

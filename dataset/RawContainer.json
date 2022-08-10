@@ -1,5 +1,5 @@
 {
-	"name": "StorageBlob",
+	"name": "RawContainer",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",

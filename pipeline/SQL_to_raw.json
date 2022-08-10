@@ -97,7 +97,7 @@
 							],
 							"outputs": [
 								{
-									"referenceName": "CSVtable",
+									"referenceName": "tableNameCSV",
 									"type": "DatasetReference",
 									"parameters": {
 										"fileName": {
