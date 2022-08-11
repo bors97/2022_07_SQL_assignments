@@ -1,5 +1,5 @@
 {
-	"name": "TransformationUsersCSV",
+	"name": "TransformationPlatformsCSV",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBlobStorage1",
@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "users.csv",
+				"fileName": "platforms.csv",
 				"container": "transformation"
 			},
 			"columnDelimiter": ",",

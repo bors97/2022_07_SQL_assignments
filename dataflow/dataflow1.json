@@ -19,6 +19,10 @@
 					"name": "Users"
 				},
 				{
+					"dataset": {
+						"referenceName": "RawPlatformsCSV",
+						"type": "DatasetReference"
+					},
 					"name": "source1"
 				}
 			],
@@ -32,10 +36,17 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "DelimitedText1",
+						"referenceName": "TransformationUsersCSV",
 						"type": "DatasetReference"
 					},
 					"name": "UsersOutput"
+				},
+				{
+					"dataset": {
+						"referenceName": "TransformationPlatformsCSV",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
 				}
 			],
 			"transformations": [
@@ -44,6 +55,9 @@
 				},
 				{
 					"name": "UsersTransform"
+				},
+				{
+					"name": "derivedColumn1"
 				}
 			],
 			"scriptLines": [
@@ -70,11 +84,20 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Users",
-				"source(allowSchemaDrift: true,",
-				"     validateSchema: false) ~> source1",
+				"source(output(",
+				"          platform_id as short,",
+				"          courses as short,",
+				"          platform_name as string,",
+				"          url as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
 				"Reviews derive(feedback = iifNull(feedback, \"No feedback was given.\", feedback)) ~> ReviewsTransform",
 				"Users derive(creation_date = toDate(creation_date),",
 				"          level = iifNull(level, \"Not yet assigned\", level)) ~> UsersTransform",
+				"source1 derive(platform_name = iifNull(platform_name, \"Untitled\", platform_name),",
+				"          url = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"ReviewsTransform sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
@@ -82,7 +105,11 @@
 				"UsersTransform sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> UsersOutput"
+				"     skipDuplicateMapOutputs: true) ~> UsersOutput",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
 			]
 		}
 	}
