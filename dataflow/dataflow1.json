@@ -23,7 +23,7 @@
 						"referenceName": "RawPlatformsCSV",
 						"type": "DatasetReference"
 					},
-					"name": "source1"
+					"name": "Platforms"
 				}
 			],
 			"sinks": [
@@ -46,7 +46,7 @@
 						"referenceName": "TransformationPlatformsCSV",
 						"type": "DatasetReference"
 					},
-					"name": "sink1"
+					"name": "PlatformsOutput"
 				}
 			],
 			"transformations": [
@@ -92,11 +92,11 @@
 				"     ),",
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> source1",
+				"     ignoreNoFilesFound: false) ~> Platforms",
 				"Reviews derive(feedback = iifNull(feedback, \"No feedback was given.\", feedback)) ~> ReviewsTransform",
 				"Users derive(creation_date = toDate(creation_date),",
 				"          level = iifNull(level, \"Not yet assigned\", level)) ~> UsersTransform",
-				"source1 derive(platform_name = iifNull(platform_name, \"Untitled\", platform_name),",
+				"Platforms derive(platform_name = iifNull(platform_name, \"Untitled\", platform_name),",
 				"          url = ERROR_FUNCTION('')) ~> derivedColumn1",
 				"ReviewsTransform sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
@@ -109,7 +109,7 @@
 				"derivedColumn1 sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true) ~> sink1"
+				"     skipDuplicateMapOutputs: true) ~> PlatformsOutput"
 			]
 		}
 	}
