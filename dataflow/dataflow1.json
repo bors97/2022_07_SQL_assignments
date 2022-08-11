@@ -57,7 +57,7 @@
 					"name": "UsersTransform"
 				},
 				{
-					"name": "derivedColumn1"
+					"name": "PlatformsTransform"
 				}
 			],
 			"scriptLines": [
@@ -97,7 +97,7 @@
 				"Users derive(creation_date = toDate(creation_date),",
 				"          level = iifNull(level, \"Not yet assigned\", level)) ~> UsersTransform",
 				"Platforms derive(platform_name = iifNull(platform_name, \"Untitled\", platform_name),",
-				"          url = ERROR_FUNCTION('')) ~> derivedColumn1",
+				"          url = ERROR_FUNCTION('')) ~> PlatformsTransform",
 				"ReviewsTransform sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
@@ -106,7 +106,7 @@
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> UsersOutput",
-				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"PlatformsTransform sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     skipDuplicateMapInputs: true,",
 				"     skipDuplicateMapOutputs: true) ~> PlatformsOutput"
