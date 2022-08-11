@@ -17,17 +17,24 @@
 						"type": "DatasetReference"
 					},
 					"name": "Users"
+				},
+				{
+					"name": "source1"
 				}
 			],
 			"sinks": [
 				{
 					"dataset": {
-						"referenceName": "TransformationContainer",
+						"referenceName": "TransformationReviewsCSV",
 						"type": "DatasetReference"
 					},
 					"name": "ReviewsOutput"
 				},
 				{
+					"dataset": {
+						"referenceName": "DelimitedText1",
+						"type": "DatasetReference"
+					},
 					"name": "UsersOutput"
 				}
 			],
@@ -63,6 +70,8 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Users",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> source1",
 				"Reviews derive(feedback = iifNull(feedback, \"No feedback was given.\", feedback)) ~> ReviewsTransform",
 				"Users derive(creation_date = toDate(creation_date),",
 				"          level = iifNull(level, \"Not yet assigned\", level)) ~> UsersTransform",
